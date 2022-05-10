@@ -5,16 +5,23 @@ using UnityEngine.UI;
 
 public class TextController : MonoBehaviour {
 
+    public Light sceneLight;
     public Text contrast;
     public Text message;
     public float contrastlevel = 1.0f;
 
+    void Start()
+    {
+        sceneLight.intensity = contrastlevel;
+    }
 
     // Update is called once per frame
     void Update()
     { 
         contrast.text = "Contrast Level: " + contrastlevel;
         message.text = "Can you see? ";
+        sceneLight.intensity = contrastlevel;
+        Debug.Log("Contrast Level is: " + contrastlevel);
     }
 
     public void yes()
