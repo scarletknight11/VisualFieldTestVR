@@ -9,6 +9,7 @@ public class TextController : MonoBehaviour {
     public Text contrast;
     public Text message;
     public float contrastlevel = 1.0f;
+    public TimeFrame time;
 
     void Start()
     {
@@ -27,10 +28,12 @@ public class TextController : MonoBehaviour {
     public void yes()
     {
         contrastlevel -= 0.05f;
+        time.resettime();
         if (contrastlevel <= 0)
         {
             contrastlevel = 0;
         }
+
     }
 
     public void no()
