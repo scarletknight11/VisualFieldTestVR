@@ -7,6 +7,7 @@ public class Brightness : MonoBehaviour {
     public Slider slider;
     public Light sceneLight;
     public float contrastlevel = 0.5f;
+    public GameObject light;
 
     void Start()
     {

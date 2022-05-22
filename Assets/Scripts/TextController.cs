@@ -32,19 +32,16 @@ public class TextController : MonoBehaviour {
         if (contrastlevel <= 0)
         {
             contrastlevel = 0;
+            time.timesame();
         }
-
     }
 
     public void no()
     {
         contrastlevel += 0.05f;
-
-        if(contrastlevel >= 1)
+        if (contrastlevel >= 1)
         {
             contrastlevel = 1;
         }
     }
-
-
 }
