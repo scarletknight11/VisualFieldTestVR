@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class ComputeBrightness : MonoBehaviour {
     
-    public float time;
     public GameObject light;
     public TimeFrame timer;
-    float sec;
-    
+    double sec;
+    double sec0;
+
     // Start is called before the first frame update
     void Start()
     {
+        light.SetActive(false);
         StartCoroutine("MilliTimer");
     }
 
      IEnumerator MilliTimer()
     {
+        sec0 = Time.fixedTimeAsDouble;
+        light.SetActive(true);
         while (true)
         {
-            time += Time.deltaTime;
-            sec = (int)(time % 60);
-            float ms = (int)(sec * 1000);
-            if (ms >= 2000)
+            sec = Time.fixedTimeAsDouble;
+            if (sec-sec0 >= 0.2)
             { 
                 light.SetActive(false);
                 timer.TurnOnText();

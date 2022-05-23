@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TextController : MonoBehaviour {
-
+    
     public Light sceneLight;
     public Text contrast;
     public Text message;
