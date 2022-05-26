@@ -13,8 +13,10 @@ public class TextController : MonoBehaviour {
     public GameObject timer;
     public GameObject sim;
     public GameObject button;
+    public GameObject light;
     public float contrastlevel = 1.0f;
     public TimeFrame time;
+    public ComputeBrightness bright;
 
     void Start()
     {
@@ -34,6 +36,9 @@ public class TextController : MonoBehaviour {
     {
         contrastlevel -= 0.05f;
         time.resettime();
+        light.SetActive(true);
+        bright.spawnobjects();
+
         if (contrastlevel <= 0)
         {
             contrastlevel = 0;
@@ -44,6 +49,8 @@ public class TextController : MonoBehaviour {
     public void no()
     {
         contrastlevel += 0.05f;
+        time.resettime();
+        bright.spawnobjects();
         if (contrastlevel > 1)
         {
             contrastlevel = 1;
@@ -54,16 +61,4 @@ public class TextController : MonoBehaviour {
             simulationover.text = "Visual Field Testing Over";
         }
     }
-
-    //public void dismiss()
-    //{
-    //    if (contrastlevel > 1)
-    //    {
-    //        contrastlevel = 1;
-    //        messaging.SetActive(false);
-    //        timer.SetActive(false);
-    //        sim.SetActive(true);
-    //        simulationover.text = "Visual Field Testing Over";
-    //    }
-    //}
 }

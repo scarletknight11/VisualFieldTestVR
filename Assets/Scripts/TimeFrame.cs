@@ -29,7 +29,6 @@ public class TimeFrame : MonoBehaviour {
         {
             textDisplay.GetComponent<Text>().text = "00:" + secondsLeft;
             text.no();
-            textDisplay.SetActive(false);
             StartCoroutine(TurnOffText());
         }
         takingAway = false;
@@ -40,7 +39,6 @@ public class TimeFrame : MonoBehaviour {
         yield return new WaitForSeconds(3);
         textDisplay.SetActive(true);
         secondsLeft = 1.0;
-        //text.dismiss();
     }
 
     public void TurnOnText()
@@ -51,7 +49,6 @@ public class TimeFrame : MonoBehaviour {
 
     public void resettime()
     {
-        textDisplay.SetActive(false);
         secondsLeft = 1.0;
         textDisplay.GetComponent<Text>().text = "00:" + secondsLeft;
         textDisplay.SetActive(true);
