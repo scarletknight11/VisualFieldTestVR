@@ -40,6 +40,7 @@ public class TimeFrame : MonoBehaviour {
         yield return new WaitForSeconds(3);
         textDisplay.SetActive(true);
         secondsLeft = 1.0;
+        //text.dismiss();
     }
 
     public void TurnOnText()

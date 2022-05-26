@@ -5,6 +5,8 @@ using UnityEngine;
 public class ComputeBrightness : MonoBehaviour {
     
     public GameObject light;
+    public Vector3 center;
+    public Vector3 size;
     public TimeFrame timer;
     double sec;
     double sec0;
@@ -31,4 +33,5 @@ public class ComputeBrightness : MonoBehaviour {
             yield return null;
         }
     }
+ 
 }
