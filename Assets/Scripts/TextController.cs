@@ -10,17 +10,18 @@ public class TextController : MonoBehaviour {
     public Text message;
     public Text simulationover;
     public GameObject messaging;
-    public GameObject timer;
     public GameObject sim;
     public GameObject button;
     public GameObject light;
     public float contrastlevel = 1.0f;
-    public TimeFrame time;
+    public float clickyes;
+    public float seconds = 0f;
     public ComputeBrightness bright;
 
     void Start()
     {
         sceneLight.intensity = contrastlevel;
+        StartCoroutine(time());
     }
 
     // Update is called once per frame
@@ -30,35 +31,47 @@ public class TextController : MonoBehaviour {
         message.text = "Can you see? ";
         sceneLight.intensity = contrastlevel;
         Debug.Log("Contrast Level is: " + contrastlevel);
+
     }
 
     public void yes()
     {
         contrastlevel -= 0.05f;
-        time.resettime();
-        light.SetActive(true);
+        //seconds = 0;
         bright.spawnobjects();
 
         if (contrastlevel <= 0)
         {
             contrastlevel = 0;
-            time.timesame();
         }
     }
 
     public void no()
     {
         contrastlevel += 0.05f;
-        time.resettime();
+        seconds = 1;
         bright.spawnobjects();
         if (contrastlevel > 1)
         {
             contrastlevel = 1;
-            messaging.SetActive(false);
-            timer.SetActive(false);
-            sim.SetActive(true);
-            button.SetActive(false);
-            simulationover.text = "Visual Field Testing Over";
+            Debug.Log("Contrast went above 1");
         }
+    }
+
+    IEnumerator time()
+    {
+        while (true)
+        {
+            timeCount();
+            yield return new WaitForSeconds(1);
+        }
+    }
+    void timeCount()
+    {
+        seconds += 1;
+        if (seconds == 1)
+        {
+            no();
+        } 
     }
 }
