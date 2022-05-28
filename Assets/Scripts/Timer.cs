@@ -1,33 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 public class Timer : MonoBehaviour {
 
-    public TextMeshProUGUI timer;
-    public float time;
-    float msec;
-    float sec;
-    float min;
+    [SerializeField] private Image uiFill;
+    [SerializeField] private Text uiText;
 
+    public int duration;
+    private int remainingDuration;
+    private bool Pause;
+
+    // Start is called before the first frame update
     private void Start()
     {
-        StartCoroutine("StopWatch");
+        Being(duration);
     }
 
-    IEnumerator StopWatch()
+    private void Being(int Second)
     {
-        while (true)
+        remainingDuration = Second;
+        StartCoroutine(UpdateTimer());
+    }
+
+    private IEnumerator UpdateTimer()
+    {
+        while(remainingDuration >= 0)
         {
-            time += Time.deltaTime;
-            msec = (int)((time - (int)time) * 100);
-            sec = (int)(time % 60);
-            min = (int)(time / 60 % 60);
-            //Debug.Log("Millisecs: " + ms);
-            timer.text = string.Format("{0:00}:{1:00}:{2:00}", min, sec, msec);
+            if (!Pause)
+            {
+                uiText.text = $"{remainingDuration / 60:00} : {remainingDuration % 60:00}";
+                uiFill.fillAmount = Mathf.InverseLerp(0, duration, remainingDuration);
+                remainingDuration--;
+                yield return new WaitForSeconds(1f);
+
+            }
             yield return null;
         }
+        OnEnd();
     }
-    
+   
+    private void OnEnd()
+    {
+        //End Time
+        print("End");
+    }
 }
