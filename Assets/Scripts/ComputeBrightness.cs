@@ -18,7 +18,10 @@ public class ComputeBrightness : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
+<<<<<<< Updated upstream
         //light.SetActive(false);
+=======
+>>>>>>> Stashed changes
         StartCoroutine("MilliTimer");
     }
 
@@ -28,7 +31,6 @@ public class ComputeBrightness : MonoBehaviour {
         light.SetActive(true);
         int randomNumber = Random.Range(0, positions.Length);
         light.transform.position = positions[randomNumber];
-        //text.clickyes = 0f;
         while (true)
         {
             sec = Time.fixedTimeAsDouble;
