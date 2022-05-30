@@ -24,8 +24,13 @@ public class CountdownController : MonoBehaviour {
      
      IEnumerator Count()
      {
+<<<<<<< Updated upstream
         currentTime -= 1 * Time.deltaTime;
         countdownText.text = currentTime.ToString("0");
+=======
+        currentTime -= 0.1f * Time.deltaTime;
+        //countdownText.text = currentTime.ToString("0");
+>>>>>>> Stashed changes
         if (currentTime <= 0)
         {
             currentTime = 0;
@@ -42,4 +47,8 @@ public class CountdownController : MonoBehaviour {
     {
         currentTime = 1;
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes
