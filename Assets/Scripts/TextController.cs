@@ -25,15 +25,18 @@ public class TextController : MonoBehaviour {
     public float currentTime = 0f;
     float startimgTime = 1f;
     public float clicked;
-    public string yesresponse = "";
-    public string noresponse = "";
+    public string lastresponse;
+    List<string> responses = new List<string>();
+    public string newresponse;
+    public float[] reversals;
+
     [SerializeField] Text countdownText;
 
     void Start()
     {
         sceneLight.intensity = contrastlevel;
         currentTime = startimgTime;
-        //PickRandomFromList();
+        PickRandomFromList();
     }
 
     // Update is called once per frame
@@ -41,15 +44,28 @@ public class TextController : MonoBehaviour {
     {
         StartCoroutine(Count());
         contrast.text = "Contrast Level: " + contrastlevel;
+        contrast2.text = "Contrast Level: " + contrastlevel2;
+        contrast3.text = "Contrast Level: " + contrastlevel3;
+        contrast4.text = "Contrast Level: " + contrastlevel4;
         message.text = "Can you see? ";
         sceneLight.intensity = contrastlevel;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            contrastlevel -= 0.05f;
+            clicked = 1;
+            lastresponse = "yes";
+            if (contrastlevel <= 0)
+            {
+                contrastlevel = 0;
+            }
+        }
     }
 
     public void yes()
     {
         contrastlevel -= 0.05f;
         clicked = 1;
-        yesresponse = "yes";
+        lastresponse = "yes";
         if (contrastlevel <= 0)
         {
             contrastlevel = 0;
@@ -58,54 +74,58 @@ public class TextController : MonoBehaviour {
 
     public void no()
     {
-        noresponse = "no";
         contrastlevel += 0.05f;
+        newresponse = "no";
         if (contrastlevel > 1)
         {
             contrastlevel = 1;
         }
     }
 
-    //public void PickRandomFromList()
-    //{
-    //    //int num = Random.Range(1, 4);
-    //    int num = 1;
-    //    int num2 = 2;
-    //    int num3 = 3;
-    //    int num4 = 4;
-    //    string[] students = new string[] { "Group " + num, "Group " + num2, "Group " + num3, "Group " + num4 };
-    //    string randomName = students[Random.Range(0, students.Length)];
-    //    largeText.text = randomName;
+    public void PickRandomFromList()
+    {
+        //int num = Random.Range(1, 4);
+        int num = 1;
+        int num2 = 2;
+        int num3 = 3;
+        int num4 = 4;
+        string[] groups = new string[] { "Group " + num, "Group " + num2, "Group " + num3, "Group " + num4 };
+        string randomgroups = groups[Random.Range(0, groups.Length)];
+        largeText.text = randomgroups;
 
-    //    if (randomName == "Group " + num)
-    //    {
-    //        GameObject.Find("ContrastText").SetActive(true);
-    //        GameObject.Find("ContrastText2").SetActive(false);
-    //        GameObject.Find("ContrastText3").SetActive(false);
-    //        GameObject.Find("ContrastText4").SetActive(false);
-    //    }
-    //    else if (randomName == "Group " + num2)
-    //    {
-    //        GameObject.Find("ContrastText").SetActive(false);
-    //        GameObject.Find("ContrastText2").SetActive(true);
-    //        GameObject.Find("ContrastText3").SetActive(false);
-    //        GameObject.Find("ContrastText4").SetActive(false);
-    //    }
-    //    else if (randomName == "Group " + num3)
-    //    {
-    //        GameObject.Find("ContrastText").SetActive(false);
-    //        GameObject.Find("ContrastText2").SetActive(false);
-    //        GameObject.Find("ContrastText3").SetActive(true);
-    //        GameObject.Find("ContrastText4").SetActive(false);
-    //    }
-    //    else if (randomName == "Group " + num4)
-    //    {
-    //        GameObject.Find("ContrastText").SetActive(false);
-    //        GameObject.Find("ContrastText2").SetActive(false);
-    //        GameObject.Find("ContrastText3").SetActive(false);
-    //        GameObject.Find("ContrastText4").SetActive(true);
-    //    }
-    //}
+        if (randomgroups == "Group " + num)
+        {
+            GameObject.Find("ContrastText").SetActive(true);
+            contrast.text = "Contrast Level: " + contrastlevel;
+            GameObject.Find("ContrastText2").SetActive(false);
+            GameObject.Find("ContrastText3").SetActive(false);
+            GameObject.Find("ContrastText4").SetActive(false);
+        }
+        else if (randomgroups == "Group " + num2)
+        {
+            GameObject.Find("ContrastText").SetActive(false);
+            GameObject.Find("ContrastText2").SetActive(true);
+            contrast2.text = "Contrast Level: " + contrastlevel2;
+            GameObject.Find("ContrastText3").SetActive(false);
+            GameObject.Find("ContrastText4").SetActive(false);
+        }
+        else if (randomgroups == "Group " + num3)
+        {
+            GameObject.Find("ContrastText").SetActive(false);
+            GameObject.Find("ContrastText2").SetActive(false);
+            GameObject.Find("ContrastText3").SetActive(true);
+            contrast3.text = "Contrast Level: " + contrastlevel3;
+            GameObject.Find("ContrastText4").SetActive(false);
+        }
+        else if (randomgroups == "Group " + num4)
+        {
+            GameObject.Find("ContrastText").SetActive(false);
+            GameObject.Find("ContrastText2").SetActive(false);
+            GameObject.Find("ContrastText3").SetActive(false);
+            GameObject.Find("ContrastText4").SetActive(true);
+            contrast4.text = "Contrast Level: " + contrastlevel4;
+        }
+    }
 
     IEnumerator Count()
     {
@@ -115,7 +135,7 @@ public class TextController : MonoBehaviour {
         {
             //yield return new WaitForSeconds(1f);
             currentTime = 1;
-            //PickRandomFromList();
+            PickRandomFromList();
             bright.spawnobjects();
             clicked = 0;
         }
@@ -126,11 +146,11 @@ public class TextController : MonoBehaviour {
             bright.spawnobjects();
         }
 
-        if (yesresponse != noresponse && noresponse == "no")
+        if (lastresponse == "yes" && newresponse == "no" && lastresponse != newresponse)
         {
             Debug.Log("Reversal ");
-            yesresponse = "";
-            noresponse = "";
+            //lastresponse = "";
+            //newresponse = "";
         }
     }
 }
