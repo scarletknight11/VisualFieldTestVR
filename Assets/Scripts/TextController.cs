@@ -173,7 +173,7 @@ public class TextController : MonoBehaviour
                     GameObject.Find("TextController").SetActive(false);
                     GameObject.Find("Light").SetActive(false);
                     Debug.Log("avg " + avg);
-                    avgreversals.text = "Avg Reversals: " + avg;
+                    avgreversals.text = "Contrast Threshold: " + avg;
                 }
             }
         }
