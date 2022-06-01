@@ -11,6 +11,7 @@ public class TextController : MonoBehaviour
     public Text contrast2;
     public Text contrast3;
     public Text contrast4;
+    public Text avgreversals;
     public Text message;
     public Text simulationover;
     public GameObject messaging;
@@ -21,6 +22,11 @@ public class TextController : MonoBehaviour
     public float contrastlevel2 = 1.0f;
     public float contrastlevel3 = 1.0f;
     public float contrastlevel4 = 1.0f;
+    public float reversalcount = 0f;
+    public float prevcontrast;
+    float storefirstcount;
+    float secondfirstcount;
+    float thirdfirstcount;
     public ComputeBrightness bright;
     public Text largeText;
     public float currentTime = 0f;
@@ -28,8 +34,7 @@ public class TextController : MonoBehaviour
     public float clicked;
     public string lastresponse = "yes";
     public string newresponse;
-    //public float[] reversals;
- 
+
     [SerializeField] Text countdownText;
     [SerializeField] Text reversaltext;
 
@@ -37,6 +42,7 @@ public class TextController : MonoBehaviour
     {
         sceneLight.intensity = contrastlevel;
         currentTime = startimgTime;
+        //prevcontrast = contrastlevel;
         //PickRandomFromList();
     }
 
@@ -44,22 +50,13 @@ public class TextController : MonoBehaviour
     void Update()
     {
         StartCoroutine(Count());
+        prevcontrast = contrastlevel;
         contrast.text = "Contrast Level: " + contrastlevel;
         contrast2.text = "Contrast Level: " + contrastlevel2;
         contrast3.text = "Contrast Level: " + contrastlevel3;
         contrast4.text = "Contrast Level: " + contrastlevel4;
         message.text = "Can you see? ";
         sceneLight.intensity = contrastlevel;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            contrastlevel -= 0.05f;
-            clicked = 1;
-            lastresponse = "yes";
-            if (contrastlevel <= 0)
-            {
-                contrastlevel = 0;
-            }
-        }
     }
 
     public void yes()
@@ -138,7 +135,8 @@ public class TextController : MonoBehaviour
             //PickRandomFromList();
             bright.spawnobjects();
             clicked = 0;
-        } else if (clicked == 0f && currentTime <= 0.005167351f)
+        }
+        else if (clicked == 0f && currentTime <= 0.005167351f)
         {
             //Debug.Log("NO");
             //newresponse = "no";
@@ -151,8 +149,32 @@ public class TextController : MonoBehaviour
         {
             if (newresponse != lastresponse)
             {
+                reversalcount += 1;
+                //Debug.Log("Reversal " + prevcontrast);
                 lastresponse = newresponse;
-                Debug.Log("Reversal ");
+                reversaltext.text = "Reversal Count " + reversalcount;
+
+                if (reversalcount == 1)
+                {
+                    storefirstcount = prevcontrast;
+                    Debug.Log("first " + prevcontrast);
+                }
+                if (reversalcount == 2)
+                {
+                    secondfirstcount = prevcontrast;
+                    Debug.Log("second " + prevcontrast);
+                }
+                if (reversalcount == 3)
+                {
+                    thirdfirstcount = prevcontrast;
+                    Debug.Log("third " + prevcontrast);
+                    float avg = (storefirstcount + secondfirstcount + thirdfirstcount) / 3;
+                    GameObject.Find("Reversalstext").SetActive(false);
+                    GameObject.Find("TextController").SetActive(false);
+                    GameObject.Find("Light").SetActive(false);
+                    Debug.Log("avg " + avg);
+                    avgreversals.text = "Avg Reversals: " + avg;
+                }
             }
         }
     }
