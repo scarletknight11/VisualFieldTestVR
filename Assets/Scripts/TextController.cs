@@ -28,7 +28,7 @@ public class TextController : MonoBehaviour
     public float clicked;
     public string lastresponse = "yes";
     public string newresponse;
-    public float[] reversals;
+    //public float[] reversals;
  
     [SerializeField] Text countdownText;
     [SerializeField] Text reversaltext;
@@ -138,11 +138,10 @@ public class TextController : MonoBehaviour
             //PickRandomFromList();
             bright.spawnobjects();
             clicked = 0;
-        }
-        //else 
-        if (clicked == 0f && currentTime <= 0)
+        } else if (clicked == 0f && currentTime <= 0.005167351f)
         {
-            newresponse = "no";
+            //Debug.Log("NO");
+            //newresponse = "no";
             no();
             currentTime = 1;
             bright.spawnobjects();
