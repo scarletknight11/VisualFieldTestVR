@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TextController : MonoBehaviour {
+public class TextController : MonoBehaviour
+{
 
     public Light sceneLight;
     public Text contrast;
@@ -25,18 +26,18 @@ public class TextController : MonoBehaviour {
     public float currentTime = 0f;
     float startimgTime = 1f;
     public float clicked;
-    public string lastresponse;
-    List<string> responses = new List<string>();
+    public string lastresponse = "yes";
     public string newresponse;
     public float[] reversals;
-
+ 
     [SerializeField] Text countdownText;
+    [SerializeField] Text reversaltext;
 
     void Start()
     {
         sceneLight.intensity = contrastlevel;
         currentTime = startimgTime;
-        PickRandomFromList();
+        //PickRandomFromList();
     }
 
     // Update is called once per frame
@@ -65,7 +66,7 @@ public class TextController : MonoBehaviour {
     {
         contrastlevel -= 0.05f;
         clicked = 1;
-        lastresponse = "yes";
+        newresponse = "yes";
         if (contrastlevel <= 0)
         {
             contrastlevel = 0;
@@ -76,6 +77,7 @@ public class TextController : MonoBehaviour {
     {
         contrastlevel += 0.05f;
         newresponse = "no";
+
         if (contrastlevel > 1)
         {
             contrastlevel = 1;
@@ -84,7 +86,6 @@ public class TextController : MonoBehaviour {
 
     public void PickRandomFromList()
     {
-        //int num = Random.Range(1, 4);
         int num = 1;
         int num2 = 2;
         int num3 = 3;
@@ -133,24 +134,27 @@ public class TextController : MonoBehaviour {
         yield return new WaitForSeconds(1f);
         if (currentTime <= 0f)
         {
-            //yield return new WaitForSeconds(1f);
             currentTime = 1;
-            PickRandomFromList();
+            //PickRandomFromList();
             bright.spawnobjects();
             clicked = 0;
         }
-        else if (clicked == 0f && currentTime <= 0)
+        //else 
+        if (clicked == 0f && currentTime <= 0)
         {
+            newresponse = "no";
             no();
             currentTime = 1;
             bright.spawnobjects();
         }
 
-        if (lastresponse == "yes" && newresponse == "no" && lastresponse != newresponse)
+        if (newresponse == "yes" || newresponse == "no")
         {
-            Debug.Log("Reversal ");
-            //lastresponse = "";
-            //newresponse = "";
+            if (newresponse != lastresponse)
+            {
+                lastresponse = newresponse;
+                Debug.Log("Reversal ");
+            }
         }
     }
 }
