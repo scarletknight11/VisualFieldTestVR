@@ -44,17 +44,70 @@ public class ComputeBrightness : MonoBehaviour {
         light.SetActive(true);
         int randomNumber = Random.Range(0, positions.Length);
         light.transform.position = positions[randomNumber];
+
+        //if (positions[randomNumber] == positions[0])
+        //{
+        //    //Debug.Log(positions[1]);
+        //    text.getcontrast1();
+        //}
+        //if (positions[randomNumber] == positions[1])
+        //{
+        //    //Debug.Log(positions[1]);
+        //    text.getcontrast2();
+        //}
+        //if (positions[randomNumber] == positions[2])
+        //{
+        //    //Debug.Log(positions[1]);
+        //    text.getcontrast3();
+        //}
+        //if (positions[randomNumber] == positions[4])
+        //{
+        //    //Debug.Log(positions[1]);
+        //    text.getcontrast4();
+        //}
     }
 
-    //public void PickRandomFromList()
-    //{
-    //    //int num = Random.Range(1, 4);
-    //    int num = 1;
-    //    int num2 = 2;
-    //    int num3 = 3;
-    //    int num4 = 4;
-    //    string[] students = new string[] { "Group " + num, "Group " + num2, "Group " + num3, "Group " + num4 };
-    //    string randomName = students[Random.Range(0, students.Length)];
-    //    largeText.text = randomName;
-    //}
+    public void PickRandomFromList()
+    {
+        int num = 1;
+        int num2 = 2;
+        int num3 = 3;
+        int num4 = 4;
+        string[] groups = new string[] { "Group " + num, "Group " + num2, "Group " + num3, "Group " + num4 };
+        string randomgroups = groups[Random.Range(0, groups.Length)];
+        //largeText.text = randomgroups;
+
+        if (randomgroups == "Group " + num)
+        {
+            GameObject.Find("ContrastText").SetActive(true);
+            //contrast.text = "Contrast Level: " + contrastlevel;
+            GameObject.Find("ContrastText2").SetActive(false);
+            GameObject.Find("ContrastText3").SetActive(false);
+            GameObject.Find("ContrastText4").SetActive(false);
+        }
+        else if (randomgroups == "Group " + num2)
+        {
+            GameObject.Find("ContrastText").SetActive(false);
+            GameObject.Find("ContrastText2").SetActive(true);
+            //contrast2.text = "Contrast Level: " + contrastlevel2;
+            GameObject.Find("ContrastText3").SetActive(false);
+            GameObject.Find("ContrastText4").SetActive(false);
+        }
+        else if (randomgroups == "Group " + num3)
+        {
+            GameObject.Find("ContrastText").SetActive(false);
+            GameObject.Find("ContrastText2").SetActive(false);
+            GameObject.Find("ContrastText3").SetActive(true);
+            //contrast3.text = "Contrast Level: " + contrastlevel3;
+            GameObject.Find("ContrastText4").SetActive(false);
+        }
+        else if (randomgroups == "Group " + num4)
+        {
+            GameObject.Find("ContrastText").SetActive(false);
+            GameObject.Find("ContrastText2").SetActive(false);
+            GameObject.Find("ContrastText3").SetActive(false);
+            GameObject.Find("ContrastText4").SetActive(true);
+            //contrast4.text = "Contrast Level: " + contrastlevel4;
+        }
+    }
 }
