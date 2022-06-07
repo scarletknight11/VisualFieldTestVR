@@ -21,6 +21,7 @@ public class TextController : MonoBehaviour {
     public float contrastlevel2 = 1.0f;
     public float contrastlevel3 = 1.0f;
     public float contrastlevel4 = 1.0f;
+    public float[] contrasts;
     public float reversalcount = 0f;
     public float prevcontrast;
     float storefirstcount;
