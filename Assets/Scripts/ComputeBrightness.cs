@@ -47,7 +47,7 @@ public class ComputeBrightness : MonoBehaviour {
 
         //if (positions[randomNumber] == positions[0])
         //{
-        //    //Debug.Log(positions[1]);
+        //    //Debug.Log(positions[0]);
         //    text.getcontrast1();
         //}
         //if (positions[randomNumber] == positions[1])
@@ -57,12 +57,12 @@ public class ComputeBrightness : MonoBehaviour {
         //}
         //if (positions[randomNumber] == positions[2])
         //{
-        //    //Debug.Log(positions[1]);
+        //    //Debug.Log(positions[2]);
         //    text.getcontrast3();
         //}
-        //if (positions[randomNumber] == positions[4])
+        //if (positions[randomNumber] == positions[3])
         //{
-        //    //Debug.Log(positions[1]);
+        //    //Debug.Log(positions[3]);
         //    text.getcontrast4();
         //}
     }
@@ -80,7 +80,6 @@ public class ComputeBrightness : MonoBehaviour {
         if (randomgroups == "Group " + num)
         {
             GameObject.Find("ContrastText").SetActive(true);
-            //contrast.text = "Contrast Level: " + contrastlevel;
             GameObject.Find("ContrastText2").SetActive(false);
             GameObject.Find("ContrastText3").SetActive(false);
             GameObject.Find("ContrastText4").SetActive(false);
@@ -89,7 +88,6 @@ public class ComputeBrightness : MonoBehaviour {
         {
             GameObject.Find("ContrastText").SetActive(false);
             GameObject.Find("ContrastText2").SetActive(true);
-            //contrast2.text = "Contrast Level: " + contrastlevel2;
             GameObject.Find("ContrastText3").SetActive(false);
             GameObject.Find("ContrastText4").SetActive(false);
         }
@@ -98,7 +96,6 @@ public class ComputeBrightness : MonoBehaviour {
             GameObject.Find("ContrastText").SetActive(false);
             GameObject.Find("ContrastText2").SetActive(false);
             GameObject.Find("ContrastText3").SetActive(true);
-            //contrast3.text = "Contrast Level: " + contrastlevel3;
             GameObject.Find("ContrastText4").SetActive(false);
         }
         else if (randomgroups == "Group " + num4)
@@ -107,7 +104,6 @@ public class ComputeBrightness : MonoBehaviour {
             GameObject.Find("ContrastText2").SetActive(false);
             GameObject.Find("ContrastText3").SetActive(false);
             GameObject.Find("ContrastText4").SetActive(true);
-            //contrast4.text = "Contrast Level: " + contrastlevel4;
         }
     }
 }
