@@ -12,7 +12,7 @@ public class ComputeBrightness : MonoBehaviour {
     double sec;
     double sec0;
     float loop = 1f;
-    public TextController text;
+    //public TextController text;
 
 
     // Start is called before the first frame update
