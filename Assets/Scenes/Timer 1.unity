@@ -220,7 +220,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &747728521
 RectTransform:
   m_ObjectHideFlags: 0
@@ -722,6 +722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0adea1804b52446a2aa03d4d78bb5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentTime: 0
   currentTimeText: {fileID: 2140460874}
   positions:
   - {x: 0.25, y: 0.25, z: 2.7689}
@@ -729,7 +730,6 @@ MonoBehaviour:
   - {x: -0.25, y: 0.25, z: 2.7689}
   - {x: -0.25, y: -0.25, z: 2.7689}
   gameobj: {fileID: 1806679053}
-  bright: {fileID: 8497544094265126256, guid: ae921b5471bfdee4c9890ea62a4dfb89, type: 3}
 --- !u!1 &1796762435
 GameObject:
   m_ObjectHideFlags: 0
