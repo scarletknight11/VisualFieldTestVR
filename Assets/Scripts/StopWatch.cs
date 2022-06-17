@@ -16,29 +16,15 @@ public class StopWatch : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
-        currentTime = 0;
+        currentTime = 0.0;
         timerActive = true;
-        gameobj.SetActive(true);
+        //gameobj.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        gameobj.SetActive(true);
-            if (timerActive == true)
-            {
-                currentTime = currentTime + Time.fixedTime;
-                TimeSpan time = TimeSpan.FromMilliseconds(currentTime);
-
-                if (time.Milliseconds == 200.0)
-                {
-                    currentTime = 0;
-                    gameobj.SetActive(false);
-                    spawnobjects();
-                }
-                currentTimeText.text = time.ToString(@"mm\:ss\:fff");
-            }
-        //currentTimeText.text = time.Minutes.ToString() + ":" + time.Seconds.ToString() + ":"  + time.Milliseconds.ToString();
+        StartCoroutine("MilliTimer");
     }
 
     public void spawnobjects()
@@ -48,34 +34,33 @@ public class StopWatch : MonoBehaviour {
         gameobj.transform.position = positions[randomNumber];
     }
 
-    //IEnumerator MilliTimer()
-    //{
-    //    if (timerActive == true)
-    //    {
-    //        currentTime = currentTime + Time.fixedTime;
-    //    }
-    //    //int randomNumber = UnityEngine.Random.Range(0, positions.Length);
-    //    //gameobj.transform.position = positions[randomNumber];
+    IEnumerator MilliTimer()
+    {
+        gameobj.SetActive(true);
+        if (timerActive == true)
+        {
+            currentTime = currentTime + Time.fixedTimeAsDouble;
+            TimeSpan time = TimeSpan.FromMilliseconds(currentTime);
 
-    //    TimeSpan time = TimeSpan.FromMilliseconds(currentTime);
-    //    //FromSeconds
-    //    //currentTimeText.text = time.Minutes.ToString() + ":" + time.Seconds.ToString() + ":"  + time.Milliseconds.ToString();
-    //    if (time.Milliseconds == 200f)
-    //    {
-    //        currentTime = 0;
-    //        gameobj.SetActive(false);
-    //    }
-    //    currentTimeText.text = time.ToString(@"mm\:ss\:fff");
-    //    yield return new WaitForSeconds(1f);
-    //}
-
+            if (time.Milliseconds >= 200f)
+            {
+                currentTime = 0.0;
+                gameobj.SetActive(false);
+                yield return new WaitForSeconds(1);
+                spawnobjects();
+            }
+            currentTimeText.text = time.ToString(@"mm\:ss\:fff");
+            yield return null;
+        }
+    }
+   
     //public void StartTimer()
     //{
     //    timerActive = true;
     //}
 
-    public void StopTimer()
-    {
-        timerActive = false;
-    }
+    //public void StopTimer()
+    //{
+    //    timerActive = false;
+    //}
 }
