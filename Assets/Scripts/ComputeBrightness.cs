@@ -2,47 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System;
 
 public class ComputeBrightness : MonoBehaviour {
     
     public GameObject light;
     public Vector3[] positions;
+    public TextController text;
     //public TimeFrame timer;
-    double sec;
+    //double sec;
     double sec0;
+    bool timerActive = false;
     float loop = 1f;
-    //public TextController text;
-
+    public Text currentTimeText;
 
     // Start is called before the first frame update
     void Start()
     {
+        sec0 = 0.0;
+        timerActive = true;
         StartCoroutine("MilliTimer");
     }
 
-     IEnumerator MilliTimer()
-     {
-        sec0 = Time.fixedTimeAsDouble;
-        light.SetActive(true);
-        int randomNumber = Random.Range(0, positions.Length);
-        light.transform.position = positions[randomNumber];
-        while (true)
+    IEnumerator MilliTimer()
+    {
+        spawnobjects();
+        if (timerActive == true)
         {
-            sec = Time.fixedTimeAsDouble;
-            if (sec - sec0 >= 0.2)
-            { 
-                light.SetActive(false);
-                yield return new WaitForSeconds(1);
+            while (true)
+            {
+                sec0 = sec0 + Time.fixedTimeAsDouble;
+                TimeSpan time = TimeSpan.FromMilliseconds(sec0);
+                if (time.Milliseconds >= 200f)
+                {
+                    sec0 = 0.0;
+                    light.SetActive(false);
+                    yield return new WaitForSeconds(1);
+                }
+                //currentTimeText.text = time.ToString(@"mm\:ss\:fff");
+                yield return null;
             }
-            yield return null;
         }
      }
 
     public void spawnobjects()
     {
         light.SetActive(true);
-        int randomNumber = Random.Range(0, positions.Length);
+        int randomNumber = UnityEngine.Random.Range(0, positions.Length);
         light.transform.position = positions[randomNumber];
 
         //if (positions[randomNumber] == positions[0])
@@ -74,7 +80,7 @@ public class ComputeBrightness : MonoBehaviour {
         int num3 = 3;
         int num4 = 4;
         string[] groups = new string[] { "Group " + num, "Group " + num2, "Group " + num3, "Group " + num4 };
-        string randomgroups = groups[Random.Range(0, groups.Length)];
+        string randomgroups = groups[UnityEngine.Random.Range(0, groups.Length)];
         //largeText.text = randomgroups;
 
         if (randomgroups == "Group " + num)
