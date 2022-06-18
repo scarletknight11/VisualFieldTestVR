@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,7 @@ public class TextController : MonoBehaviour {
     public float contrastlevel2 = 1.0f;
     public float contrastlevel3 = 1.0f;
     public float contrastlevel4 = 1.0f;
-    public float[] contrastlevels = {1.0f, 1.0f, 1.0f, 1.0f};
+    //public float[] contrastlevels = {1.0f, 1.0f, 1.0f, 1.0f};
     public float reversalcount = 0.0f;
     public float prevcontrast;
     float storefirstcount;
@@ -32,7 +33,7 @@ public class TextController : MonoBehaviour {
     float thirdfirstcount;
     public ComputeBrightness bright;
     public Text largeText;
-    public float currentTime = 0f;
+    public double currentTime = 0.0;
     float startimgTime = 1f;
     public float clicked;
     public string lastresponse = "yes";
@@ -41,35 +42,30 @@ public class TextController : MonoBehaviour {
     [SerializeField] Text countdownText;
     [SerializeField] Text reversaltext;
 
+    public Vector3[] positions;
+    //public TextController text;
+    double sec0;
+    bool timerActive = false;
+    float loop = 1f;
+
     void Start()
     {
         sceneLight.intensity = contrastlevel;
-        sceneLight2.intensity = contrastlevel2;
-        sceneLight3.intensity = contrastlevel3;
-        sceneLight4.intensity = contrastlevel4;
         currentTime = startimgTime;
+        sec0 = 0.0;
+        timerActive = true;
+        StartCoroutine("MilliTimer");
     }
 
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(Count());
+        //StartCoroutine(Count());
         prevcontrast = contrastlevel;
         contrast.text = "Contrast Level: " + contrastlevel;
-        contrast2.text = "Contrast Level: " + contrastlevel2;
-        contrast3.text = "Contrast Level: " + contrastlevel3;
-        contrast4.text = "Contrast Level: " + contrastlevel4;
         message.text = "Can you see? ";
         sceneLight.intensity = contrastlevel;
-        sceneLight2.intensity = contrastlevel2;
-        sceneLight3.intensity = contrastlevel3;
-        sceneLight4.intensity = contrastlevel4;
     }
-
-    //public void Timetell()
-    //{
-    //    currentTime = startimgTime;
-    //}
 
     public void yes()
     {
@@ -181,17 +177,39 @@ public class TextController : MonoBehaviour {
     //    contrast4.text = "Contrast Level: " + contrastlevel4;
     //}
 
+    IEnumerator MilliTimer()
+    {
+        bright.spawnobjects();
+        if (timerActive == true)
+        {
+            while (true)
+            {
+                sec0 = sec0 + Time.fixedTimeAsDouble;
+                TimeSpan time = TimeSpan.FromMilliseconds(sec0);
+                if (time.Milliseconds >= 200f)
+                {
+                    sec0 = 0.0;
+                    light.SetActive(false);
+                    //yield return new WaitForSeconds(1f);
+                    StartCoroutine(Count());
+                }
+                yield return null;
+            }
+        }
+    }
+
     IEnumerator Count()
     {
-        currentTime -= 0.2f * Time.deltaTime;
+        currentTime -= 0.1f * Time.frameCount;
         yield return new WaitForSeconds(1f);
-        if (currentTime <= 0f)
+
+        if (currentTime <= 0.0f)
         {
-            currentTime = 1;
+            currentTime = 1f;
             bright.spawnobjects();
             clicked = 0;
         }
-        else if (clicked == 0f && currentTime <= 0.005167351f)
+        else if (clicked == 0 && currentTime <= 0.005167351f)
         {
             no();
             currentTime = 1;
