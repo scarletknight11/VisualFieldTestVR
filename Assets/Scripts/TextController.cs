@@ -190,7 +190,7 @@ public class TextController : MonoBehaviour {
                 {
                     sec0 = 0.0;
                     light.SetActive(false);
-                    //yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(1f);
                     StartCoroutine(Count());
                 }
                 yield return null;
@@ -200,7 +200,7 @@ public class TextController : MonoBehaviour {
 
     IEnumerator Count()
     {
-        currentTime -= 0.1f * Time.frameCount;
+        currentTime -= 0.2f * Time.frameCount;
         yield return new WaitForSeconds(1f);
 
         if (currentTime <= 0.0f)
