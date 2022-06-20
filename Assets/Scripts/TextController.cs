@@ -58,8 +58,8 @@ public class TextController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(Count());
         prevcontrast = contrastlevel;
+        StartCoroutine(Count());
         contrast.text = "Contrast Level: " + contrastlevel;
         message.text = "Can you see? ";
         sceneLight.intensity = contrastlevel;
@@ -199,10 +199,10 @@ public class TextController : MonoBehaviour {
     IEnumerator Count()
     {
 
-        if (currentTime > 0 && sec0 <= 0)
+        if (currentTime > 0f && sec0 <= 0.0)
         {
-            currentTime -= 0.2f * Time.deltaTime;
-            yield return new WaitForSeconds(1f);
+            currentTime -= 0.1f * Time.deltaTime;
+            yield return new WaitForSeconds(0.1f);
         }
 
         if (currentTime <= 0f)
