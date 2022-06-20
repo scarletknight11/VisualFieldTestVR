@@ -25,7 +25,6 @@ public class TextController : MonoBehaviour {
     public float contrastlevel2 = 1.0f;
     public float contrastlevel3 = 1.0f;
     public float contrastlevel4 = 1.0f;
-    //public float[] contrastlevels = {1.0f, 1.0f, 1.0f, 1.0f};
     public float reversalcount = 0.0f;
     public float prevcontrast;
     float storefirstcount;
@@ -43,7 +42,6 @@ public class TextController : MonoBehaviour {
     [SerializeField] Text reversaltext;
 
     public Vector3[] positions;
-    //public TextController text;
     double sec0;
     bool timerActive = false;
     float loop = 1f;
@@ -60,7 +58,7 @@ public class TextController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //StartCoroutine(Count());
+        StartCoroutine(Count());
         prevcontrast = contrastlevel;
         contrast.text = "Contrast Level: " + contrastlevel;
         message.text = "Can you see? ";
@@ -200,10 +198,14 @@ public class TextController : MonoBehaviour {
 
     IEnumerator Count()
     {
-        currentTime -= 0.2f * Time.frameCount;
-        yield return new WaitForSeconds(1f);
 
-        if (currentTime <= 0.0f)
+        if (currentTime > 0 && sec0 <= 0)
+        {
+            currentTime -= 0.2f * Time.deltaTime;
+            yield return new WaitForSeconds(1f);
+        }
+
+        if (currentTime <= 0f)
         {
             currentTime = 1f;
             bright.spawnobjects();
