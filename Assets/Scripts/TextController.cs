@@ -7,13 +7,7 @@ using UnityEngine.UI;
 public class TextController : MonoBehaviour {
 
     public Light sceneLight;
-    public Light sceneLight2;
-    public Light sceneLight3;
-    public Light sceneLight4;
     public Text contrast;
-    public Text contrast2;
-    public Text contrast3;
-    public Text contrast4;
     public Text avgreversals;
     public Text message;
     public Text simulationover;
@@ -22,9 +16,6 @@ public class TextController : MonoBehaviour {
     public GameObject button;
     public GameObject light;
     public float contrastlevel = 1.0f;
-    public float contrastlevel2 = 1.0f;
-    public float contrastlevel3 = 1.0f;
-    public float contrastlevel4 = 1.0f;
     public float reversalcount = 0.0f;
     public float prevcontrast;
     float storefirstcount;
@@ -45,6 +36,8 @@ public class TextController : MonoBehaviour {
     double sec0;
     bool timerActive = false;
     float loop = 1f;
+
+    public Text textClock;
 
     void Start()
     {
@@ -87,94 +80,6 @@ public class TextController : MonoBehaviour {
         } 
     }
 
-    //public void PickRandomFromList()
-    //{
-    //    int num = 1;
-    //    int num2 = 2;
-    //    int num3 = 3;
-    //    int num4 = 4;
-    //    string[] groups = new string[] { "Group " + num, "Group " + num2, "Group " + num3, "Group " + num4 };
-    //    string randomgroups = groups[Random.Range(0, groups.Length)];
-    //    largeText.text = randomgroups;
-
-    //    if (randomgroups == "Group " + num)
-    //    {
-    //        GameObject.Find("ContrastText").SetActive(true);
-    //        contrast.text = "Contrast Level: " + contrastlevel;
-    //        GameObject.Find("ContrastText2").SetActive(false);
-    //        GameObject.Find("ContrastText3").SetActive(false);
-    //        GameObject.Find("ContrastText4").SetActive(false);
-    //        Debug.Log("hi");
-    //    }
-    //    else if (randomgroups == "Group " + num2)
-    //    {
-    //        GameObject.Find("ContrastText").SetActive(false);
-    //        GameObject.Find("ContrastText2").SetActive(true);
-    //        contrast2.text = "Contrast Level: " + contrastlevel2;
-    //        GameObject.Find("ContrastText3").SetActive(false);
-    //        GameObject.Find("ContrastText4").SetActive(false);
-    //        Debug.Log("hi 2");
-    //    }
-    //    else if (randomgroups == "Group " + num3)
-    //    {
-    //        GameObject.Find("ContrastText").SetActive(false);
-    //        GameObject.Find("ContrastText2").SetActive(false);
-    //        GameObject.Find("ContrastText3").SetActive(true);
-    //        contrast3.text = "Contrast Level: " + contrastlevel3;
-    //        GameObject.Find("ContrastText4").SetActive(false);
-    //        Debug.Log("hi 3");
-    //    }
-    //    else if (randomgroups == "Group " + num4)
-    //    {
-    //        GameObject.Find("ContrastText").SetActive(false);
-    //        GameObject.Find("ContrastText2").SetActive(false);
-    //        GameObject.Find("ContrastText3").SetActive(false);
-    //        GameObject.Find("ContrastText4").SetActive(true);
-    //        contrast4.text = "Contrast Level: " + contrastlevel4;
-    //        Debug.Log("hi 4");
-    //    }
-    //}
-
-    //public void getcontrast1()
-    //{
-    //    GameObject.Find("ContrastText").SetActive(true);
-    //    sceneLight.intensity = contrastlevel;
-    //    contrast.text = "Contrast Level: " + contrastlevel;
-    //    GameObject.Find("ContrastText2").SetActive(false);
-    //    GameObject.Find("ContrastText3").SetActive(false);
-    //    GameObject.Find("ContrastText4").SetActive(false);
-    //}
-
-    //public void getcontrast2()
-    //{
-    //    GameObject.Find("ContrastText").SetActive(false);
-    //    sceneLight2.intensity = contrastlevel2;
-    //    GameObject.Find("ContrastText2").SetActive(true);
-    //    contrast2.text = "Contrast Level: " + contrastlevel2;
-    //    GameObject.Find("ContrastText3").SetActive(false);
-    //    GameObject.Find("ContrastText4").SetActive(false);
-    //}
-
-    //public void getcontrast3()
-    //{
-    //    GameObject.Find("ContrastText").SetActive(false);
-    //    GameObject.Find("ContrastText2").SetActive(false);
-    //    GameObject.Find("ContrastText3").SetActive(true);
-    //    sceneLight3.intensity = contrastlevel3;
-    //    contrast3.text = "Contrast Level: " + contrastlevel3;
-    //    GameObject.Find("ContrastText4").SetActive(false);
-    //}
-
-    //public void getcontrast4()
-    //{
-    //    GameObject.Find("ContrastText").SetActive(false);
-    //    GameObject.Find("ContrastText2").SetActive(false);
-    //    GameObject.Find("ContrastText3").SetActive(false);
-    //    GameObject.Find("ContrastText4").SetActive(true);
-    //    sceneLight4.intensity = contrastlevel4;
-    //    contrast4.text = "Contrast Level: " + contrastlevel4;
-    //}
-
     IEnumerator MilliTimer()
     {
         bright.spawnobjects();
@@ -182,11 +87,22 @@ public class TextController : MonoBehaviour {
         {
             while (true)
             {
-                sec0 = sec0 + Time.fixedTimeAsDouble;
-                TimeSpan time = TimeSpan.FromMilliseconds(sec0);
-                if (time.Milliseconds >= 200f)
+                //sec0 = sec0 + Time.fixedTimeAsDouble;
+                //TimeSpan time = TimeSpan.FromMilliseconds(sec0);
+
+                DateTime time2 = DateTime.Now;
+                //string hour = LeadingZero(time2.Hour);
+                //string minute = LeadingZero(time2.Minute);
+                //string second = LeadingZero(time2.Second);
+                string milliseconds = LeadingZero(time2.Millisecond);
+                double milli = float.Parse(milliseconds);
+                //milli = milli + Time.fixedTimeAsDouble;
+                textClock.text = ":" + milli;
+
+                if (milli >= 200f)
                 {
-                    sec0 = 0.0;
+                    milli = 0f;
+                    //sec0 = 0.0;
                     light.SetActive(false);
                     yield return new WaitForSeconds(1f);
                     StartCoroutine(Count());
@@ -194,6 +110,11 @@ public class TextController : MonoBehaviour {
                 yield return null;
             }
         }
+    }
+
+    string LeadingZero(int n)
+    {
+        return n.ToString().PadLeft(2, '0');
     }
 
     IEnumerator Count()
