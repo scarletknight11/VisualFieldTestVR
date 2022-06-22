@@ -33,7 +33,7 @@ public class TextController : MonoBehaviour {
     [SerializeField] Text reversaltext;
 
     public Vector3[] positions;
-    double sec0;
+    //double sec0;
     bool timerActive = false;
     float loop = 1f;
 
@@ -43,13 +43,11 @@ public class TextController : MonoBehaviour {
     {
         sceneLight.intensity = contrastlevel;
         currentTime = startimgTime;
-        //sec0 = 0.0;
         timerActive = true;
         StartCoroutine("MilliTimer");
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         prevcontrast = contrastlevel;
         StartCoroutine(Count());
@@ -87,27 +85,20 @@ public class TextController : MonoBehaviour {
         {
             while (true)
             {
-                //sec0 = sec0 + Time.fixedTimeAsDouble;
-                //TimeSpan time = TimeSpan.FromMilliseconds(sec0);
-
                 DateTime time2 = DateTime.Now;
                 string hour = LeadingZero(time2.Hour);
                 string minute = LeadingZero(time2.Minute);
                 string second = LeadingZero(time2.Second);
                 string milliseconds = LeadingZero(time2.Millisecond);
-                float milli = float.Parse(milliseconds);
-                //milli = milli + Time.fixedTimeAsDouble;
+
                 textClock.text = hour + ":" + minute + ":" + second + ":" + milliseconds;
 
                 if (time2.Millisecond >= 200f)
                 {
-                    milli = 0f;
-                    //sec0 = 0.0;
+                    Debug.Log("milli " + time2.Millisecond);
                     light.SetActive(false);
-                    //yield return new WaitForSeconds(1f);
                     StartCoroutine(Count());
                 }
-                //yield return null;
                 yield return new WaitForSeconds(0.1f);
             }
         }
@@ -121,10 +112,10 @@ public class TextController : MonoBehaviour {
     IEnumerator Count()
     {
 
-        if (currentTime > 0f && sec0 <= 0.0)
+        if (currentTime > 0f)
         {
             currentTime -= 0.1f * Time.deltaTime;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.01f);
         }
 
         if (currentTime <= 0f)

@@ -37,7 +37,6 @@ public class ComputeBrightness : MonoBehaviour {
                     light.SetActive(false);
                     yield return new WaitForSeconds(1);
                 }
-                //currentTimeText.text = time.ToString(@"mm\:ss\:fff");
                 yield return null;
             }
         }
@@ -48,66 +47,5 @@ public class ComputeBrightness : MonoBehaviour {
         light.SetActive(true);
         int randomNumber = UnityEngine.Random.Range(0, positions.Length);
         light.transform.position = positions[randomNumber];
-
-        //if (positions[randomNumber] == positions[0])
-        //{
-        //    //Debug.Log(positions[0]);
-        //    text.getcontrast1();
-        //}
-        //if (positions[randomNumber] == positions[1])
-        //{
-        //    //Debug.Log(positions[1]);
-        //    text.getcontrast2();
-        //}
-        //if (positions[randomNumber] == positions[2])
-        //{
-        //    //Debug.Log(positions[2]);
-        //    text.getcontrast3();
-        //}
-        //if (positions[randomNumber] == positions[3])
-        //{
-        //    //Debug.Log(positions[3]);
-        //    text.getcontrast4();
-        //}
     }
-
-    //public void PickRandomFromList()
-    //{
-    //    int num = 1;
-    //    int num2 = 2;
-    //    int num3 = 3;
-    //    int num4 = 4;
-    //    string[] groups = new string[] { "Group " + num, "Group " + num2, "Group " + num3, "Group " + num4 };
-    //    string randomgroups = groups[UnityEngine.Random.Range(0, groups.Length)];
-    //    //largeText.text = randomgroups;
-
-    //    if (randomgroups == "Group " + num)
-    //    {
-    //        GameObject.Find("ContrastText").SetActive(true);
-    //        GameObject.Find("ContrastText2").SetActive(false);
-    //        GameObject.Find("ContrastText3").SetActive(false);
-    //        GameObject.Find("ContrastText4").SetActive(false);
-    //    }
-    //    else if (randomgroups == "Group " + num2)
-    //    {
-    //        GameObject.Find("ContrastText").SetActive(false);
-    //        GameObject.Find("ContrastText2").SetActive(true);
-    //        GameObject.Find("ContrastText3").SetActive(false);
-    //        GameObject.Find("ContrastText4").SetActive(false);
-    //    }
-    //    else if (randomgroups == "Group " + num3)
-    //    {
-    //        GameObject.Find("ContrastText").SetActive(false);
-    //        GameObject.Find("ContrastText2").SetActive(false);
-    //        GameObject.Find("ContrastText3").SetActive(true);
-    //        GameObject.Find("ContrastText4").SetActive(false);
-    //    }
-    //    else if (randomgroups == "Group " + num4)
-    //    {
-    //        GameObject.Find("ContrastText").SetActive(false);
-    //        GameObject.Find("ContrastText2").SetActive(false);
-    //        GameObject.Find("ContrastText3").SetActive(false);
-    //        GameObject.Find("ContrastText4").SetActive(true);
-    //    }
-    //}
 }

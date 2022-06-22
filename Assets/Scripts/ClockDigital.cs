@@ -18,8 +18,7 @@ public class ClockDigital : MonoBehaviour {
         timerActive = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         //bright.spawnobjects();
@@ -41,7 +40,7 @@ public class ClockDigital : MonoBehaviour {
                     bright.spawnobjects();
                     Debug.Log("Hi");
                 }
-            }
+        }
     }
 
     string LeadingZero(int n)
