@@ -9,8 +9,6 @@ public class ComputeBrightness : MonoBehaviour {
     public GameObject light;
     public Vector3[] positions;
     public TextController text;
-    //public TimeFrame timer;
-    //double sec;
     double sec0;
     bool timerActive = false;
     float loop = 1f;

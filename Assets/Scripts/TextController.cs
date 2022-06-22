@@ -43,7 +43,7 @@ public class TextController : MonoBehaviour {
     {
         sceneLight.intensity = contrastlevel;
         currentTime = startimgTime;
-        sec0 = 0.0;
+        //sec0 = 0.0;
         timerActive = true;
         StartCoroutine("MilliTimer");
     }
@@ -91,23 +91,24 @@ public class TextController : MonoBehaviour {
                 //TimeSpan time = TimeSpan.FromMilliseconds(sec0);
 
                 DateTime time2 = DateTime.Now;
-                //string hour = LeadingZero(time2.Hour);
-                //string minute = LeadingZero(time2.Minute);
-                //string second = LeadingZero(time2.Second);
+                string hour = LeadingZero(time2.Hour);
+                string minute = LeadingZero(time2.Minute);
+                string second = LeadingZero(time2.Second);
                 string milliseconds = LeadingZero(time2.Millisecond);
-                double milli = float.Parse(milliseconds);
+                float milli = float.Parse(milliseconds);
                 //milli = milli + Time.fixedTimeAsDouble;
-                textClock.text = ":" + milli;
+                textClock.text = hour + ":" + minute + ":" + second + ":" + milliseconds;
 
-                if (milli >= 200f)
+                if (time2.Millisecond >= 200f)
                 {
                     milli = 0f;
                     //sec0 = 0.0;
                     light.SetActive(false);
-                    yield return new WaitForSeconds(1f);
+                    //yield return new WaitForSeconds(1f);
                     StartCoroutine(Count());
                 }
-                yield return null;
+                //yield return null;
+                yield return new WaitForSeconds(0.1f);
             }
         }
     }

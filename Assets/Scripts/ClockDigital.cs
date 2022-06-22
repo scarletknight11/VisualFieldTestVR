@@ -7,29 +7,41 @@ using System;
 public class ClockDigital : MonoBehaviour {
 
     private Text textClock;
-    private ComputeBrightness bright;
+    public ComputeBrightness bright;
     public GameObject light;
+    bool timerActive = false;
+    
 
     void Awake()
     {
         textClock = GetComponent<Text>();
+        timerActive = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        DateTime time = DateTime.Now;
-        string hour = LeadingZero(time.Hour);
-        string minute = LeadingZero(time.Minute);
-        string second = LeadingZero(time.Second);
-        string milliseconds = LeadingZero(time.Millisecond);
 
-        textClock.text = hour + ":" + minute + ":" + second + ":" + milliseconds;
-
-        if (time.Millisecond >= 200)
+        //bright.spawnobjects();
+        if (timerActive == true)
         {
-            Debug.Log("Hi");
-        }
+                DateTime time = DateTime.Now;
+                string hour = LeadingZero(time.Hour);
+                string minute = LeadingZero(time.Minute);
+                string second = LeadingZero(time.Second);
+                string milliseconds = LeadingZero(time.Millisecond);
+
+                //double milli = float.Parse(milliseconds);
+
+                textClock.text = hour + ":" + minute + ":" + second + ":" + milliseconds;
+
+                if (time.Millisecond >= 200)
+                {
+                    light.SetActive(false);
+                    bright.spawnobjects();
+                    Debug.Log("Hi");
+                }
+            }
     }
 
     string LeadingZero(int n)
