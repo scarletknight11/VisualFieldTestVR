@@ -33,7 +33,6 @@ public class TextController : MonoBehaviour {
     [SerializeField] Text reversaltext;
 
     public Vector3[] positions;
-    //double sec0;
     bool timerActive = false;
     float loop = 1f;
 
@@ -111,10 +110,9 @@ public class TextController : MonoBehaviour {
 
     IEnumerator Count()
     {
-
         if (currentTime > 0f)
         {
-            currentTime -= 0.1f * Time.deltaTime;
+            currentTime -= 0.1f * Time.fixedDeltaTime;
             yield return new WaitForSeconds(0.01f);
         }
 
