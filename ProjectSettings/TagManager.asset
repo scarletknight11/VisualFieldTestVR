@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Spawnable
   - Enemy Circle
+  - PostProcessing
+  - Focused
   layers:
   - Default
   - TransparentFX
@@ -13,8 +15,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - PostProcessing
+  - Focused
   - 
   - 
   - 
