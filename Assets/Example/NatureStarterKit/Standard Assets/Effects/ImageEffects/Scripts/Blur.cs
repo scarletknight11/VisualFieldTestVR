@@ -17,7 +17,6 @@ namespace UnityStandardAssets.ImageEffects
         [Range(0.0f, 1.0f)]
         public float blurSpread = 0.6f;
 
-        // --------------------------------------------------------
         // The blur iteration shader.
         // Basically it just takes 4 texture samples and averages them.
         // By applying it repeatedly and spreading out sample locations
@@ -36,33 +35,32 @@ namespace UnityStandardAssets.ImageEffects
             }
         }
 
-        protected void OnDisable() {
-            if ( m_Material ) {
-                DestroyImmediate( m_Material );
-            }
-        }
+        //protected void OnDisable() {
+        //    if ( m_Material ) {
+        //        DestroyImmediate( m_Material );
+        //    }
+        //}
 
-        // --------------------------------------------------------
+        //protected void Start()
+        //{
+        //    // Disable if we don't support image effects
+        //    if (!SystemInfo.supportsImageEffects) {
+        //        enabled = false;
+        //        return;
+        //    }
 
-        protected void Start()
-        {
-            // Disable if we don't support image effects
-            if (!SystemInfo.supportsImageEffects) {
-                enabled = false;
-                return;
-            }
-            // Disable if the shader can't run on the users graphics card
-            if (!blurShader || !material.shader.isSupported) {
-                enabled = false;
-                return;
-            }
-        }
+        //    // Disable if the shader can't run on the users graphics card
+        //    if (!blurShader || !material.shader.isSupported) {
+        //        enabled = false;
+        //        return;
+        //    }
+        //}
 
         // Performs one blur iteration.
         public void FourTapCone (RenderTexture source, RenderTexture dest, int iteration)
         {
             float off = 0.5f + iteration*blurSpread;
-            Graphics.BlitMultiTap (source, dest, material,
+            Graphics.BlitMultiTap(source, dest, material,
                                    new Vector2(-off, -off),
                                    new Vector2(-off,  off),
                                    new Vector2( off,  off),

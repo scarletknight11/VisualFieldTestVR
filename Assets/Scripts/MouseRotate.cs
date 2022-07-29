@@ -16,5 +16,7 @@ public class MouseRotate : MonoBehaviour {
         yaw += speedH * Input.GetAxis("Mouse X");
         pitch -= speedH * Input.GetAxis("Mouse Y");
         transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+        Debug.Log("Yaw: " + yaw + " Pitch: " + pitch);
+
     }
 }
